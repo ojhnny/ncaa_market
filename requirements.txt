@@ -1,0 +1,19 @@
+# Runtime dependencies. `pyproject.toml` is the source of truth; this file mirrors it
+# for the common `pip install -r requirements.txt` workflow.
+# For development (tests, linting, jupyter), install the package instead:
+#     pip install -e ".[dev]"
+
+pandas>=2.1
+numpy>=1.26
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=4.9
+openpyxl>=3.1
+xlsxwriter>=3.1
+scipy>=1.11
+statsmodels>=0.14
+pyarrow>=14.0
+matplotlib>=3.8
+seaborn>=0.13
+pyyaml>=6.0
+tabulate>=0.9

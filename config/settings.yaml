@@ -1,0 +1,78 @@
+# ============================================================================
+#  NCAA Market Efficiency — project configuration
+#  Single source of truth for scope, paths, sources, and analysis constants.
+#  Code reads these values; nothing here should be duplicated in Python.
+# ============================================================================
+
+project:
+  name: "NCAA Basketball Market Efficiency Analysis"
+  random_seed: 42            # fixed seed -> reproducible bootstraps & splits
+
+# ---- Temporal scope --------------------------------------------------------
+# A "season" is labeled by the year it ENDS (2008 = the 2007-08 season),
+# matching the Sportsbook Reviews Online file naming.
+seasons:
+  start: 2008                # earliest season with reliable free odds
+  end: 2024                  # most recent completed season
+  # Out-of-sample design: discover angles on the train span, confirm on holdout.
+  train_end: 2017            # seasons 2008-2017 = discovery
+  holdout_start: 2018        # seasons 2018-2024 = validation
+
+# ---- Filesystem paths (relative to repo root) ------------------------------
+paths:
+  raw: "data/raw"
+  staging: "data/staging"
+  marts: "data/marts"
+  database: "data/marts/ncaa_market.sqlite"
+  excel_out: "excel/ncaa_market_executive.xlsx"
+
+# ---- Data sources (free / public) ------------------------------------------
+sources:
+  odds:
+    name: "Sportsbook Reviews Online"
+    # Per-season historical odds spreadsheets (spread open/close, total, ML).
+    base_url: "https://www.sportsbookreviewsonline.com/scoresoddsarchives/"
+    sport_path: "ncaa-basketball"
+  results:
+    name: "Sports Reference / College Basketball Reference"
+    base_url: "https://www.sports-reference.com/cbb/"
+    # Polite scraping: SR enforces ~20 requests/min. Stay well under it.
+    request_delay_seconds: 3.5
+    user_agent: "ncaa-market-research/0.1 (educational portfolio project)"
+  rankings:
+    name: "AP / Coaches Poll (via Sports Reference)"
+    base_url: "https://www.sports-reference.com/cbb/seasons/"
+
+# ---- Market / wagering assumptions -----------------------------------------
+vig:
+  american_odds: -110        # standard spread/total price
+  # Break-even win rate = 110 / (110 + 100) = 0.523809...
+  breakeven_cover_rate: 0.5238
+  stake_per_bet: 100         # flat-betting unit for ROI simulation (USD)
+
+# ---- Statistical settings --------------------------------------------------
+stats:
+  alpha: 0.05                # significance level
+  efficient_cover_rate: 0.50 # unbiasedness benchmark (vs. break-even above)
+  bootstrap_iterations: 10000
+  fdr_method: "fdr_bh"       # Benjamini-Hochberg false-discovery-rate control
+  min_sample_size: 100       # suppress slices too small to interpret
+
+# ---- Domain labels ---------------------------------------------------------
+# "Blue blood" programs — used to test the market-premium hypothesis.
+blue_bloods:
+  - "Duke"
+  - "Kentucky"
+  - "North Carolina"
+  - "Kansas"
+  - "UCLA"
+  - "Indiana"
+
+# Conferences treated as "high-major" (power conferences) for grouping.
+high_major_conferences:
+  - "ACC"
+  - "Big Ten"
+  - "Big 12"
+  - "SEC"
+  - "Big East"
+  - "Pac-12"

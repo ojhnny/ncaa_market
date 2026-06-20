@@ -1,0 +1,12 @@
+# Normalize all text files to LF in the repo (consistent cross-platform diffs).
+* text=auto eol=lf
+
+# Treat binary deliverables as binary: never normalize line endings or diff them.
+*.xlsx binary
+*.xlsm binary
+*.pbix binary
+*.parquet binary
+*.png binary
+*.jpg binary
+*.sqlite binary
+*.duckdb binary

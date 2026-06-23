@@ -13,7 +13,7 @@ project:
 # matching the Sportsbook Reviews Online file naming.
 seasons:
   start: 2008                # earliest season with reliable free odds
-  end: 2024                  # most recent completed season
+  end: 2022                  # most recent completed season
   # Out-of-sample design: discover angles on the train span, confirm on holdout.
   train_end: 2017            # seasons 2008-2017 = discovery
   holdout_start: 2018        # seasons 2018-2024 = validation

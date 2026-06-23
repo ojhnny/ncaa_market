@@ -1,8 +1,11 @@
 # ---- Data (reproducible from source; tracked via manifests, not committed) ----
-data/raw/*
-data/staging/*
-data/marts/*
+data/raw/**
+data/staging/**
+data/marts/**
 # keep the folders + their manifests/readmes in git
+!data/raw/**/
+!data/staging/**/
+!data/marts/**/
 !data/raw/.gitkeep
 !data/staging/.gitkeep
 !data/marts/.gitkeep

@@ -18,7 +18,7 @@ def test_package_has_version() -> None:
 def test_config_loads_core_keys() -> None:
     cfg = get_config()
     assert cfg["seasons"]["start"] == 2008
-    assert cfg["seasons"]["end"] == 2024
+    assert cfg["seasons"]["end"] == 2022
     # The break-even threshold must be the -110 vig value, not 0.50.
     assert abs(cfg["vig"]["breakeven_cover_rate"] - 0.5238) < 1e-6
 
